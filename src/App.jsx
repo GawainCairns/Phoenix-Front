@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import Header from './components/header'
-import Footer from './components/footer'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Landing from './pages/landing'
+import Login from './pages/auth/login'
+import Register from './pages/auth/register'
+import Dashboard from './pages/auth/dashboard'
+import Profile from './pages/auth/profile'
+import AdminDashboard from './pages/auth/admindashboard'
 
 export default function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <><Header />
-    <div className="container mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Welcome to My React App!</h2>
-      <p className="mb-4">This is a simple React application using Vite and Tailwind CSS.</p>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={() => setCount(count + 1)}
-      >
-        Count: {count}
-      </button>
-    </div>
-    <Footer /></>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
