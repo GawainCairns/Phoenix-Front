@@ -2,9 +2,13 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-gray-800 text-white p-4 mt-8">
-      <p className="text-center">&copy; 2026 Phoenix Surveys. All rights reserved.</p>
-    </footer>
+    <div>
+      <footer>
+        <div className="fixed bottom-0 w-full p-4 text-center text-white bg-gray-800">
+          &copy; {new Date().getFullYear()} Phoenix Surveys. All rights reserved.
+        </div>
+      </footer>
+    </div>
   );
 }
 

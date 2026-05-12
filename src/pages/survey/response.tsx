@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ListSurvey() {
+export default function Response() {
   return (
     <div>
       Survey name
