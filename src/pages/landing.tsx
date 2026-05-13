@@ -8,7 +8,7 @@ export default function Landing() {
     <div>
       <Header />
       <div>
-        <main className="flex-grow p-6 mt-20">
+        <main className="container px-4 py-20 mx-auto">
           <div>
             <h1 className="mb-4 text-4xl font-bold">Welcome to Phoenix Surveys!</h1>
             <p className="mb-6 text-lg">Create and manage surveys with ease.</p>

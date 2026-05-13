@@ -1,8 +1,11 @@
 import React from "react";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 
 export default function CreateSurvey() {
   return (
     <div>
+      <Header />
       Survey name
       Survey description
       Questions
@@ -10,6 +13,7 @@ export default function CreateSurvey() {
       - Question text
       - Options (for multiple choice)
       Save button
+      <Footer />
     </div>
   );
 }
