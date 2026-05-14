@@ -2,14 +2,32 @@ import React from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 
-function Login() {
+export default function Login() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <h2>Login</h2>
+      <main className="flex flex-col items-center justify-center flex-grow">
+        <div className="w-full max-w-sm border border-gray-300 rounded-2xl p-4">
+          <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Login</h2>
+          <form className="flex flex-col border-gray-300 rounded" action="">
+            <div className="flex flex-col border-t border-gray-300 mb-2 mt-2"></div>
+            <div className="flex flex-col mb-2">
+              <label htmlFor="email">Email:</label>
+              <input className="border border-gray-300 rounded-lg p-1" type="email" id="email" name="email" required />
+            </div>
+            <div className="flex flex-col mb-2">
+              <label htmlFor="password">Password:</label>
+              <input className="border border-gray-300 rounded-lg p-1" type="password" id="password" name="password" required />
+            </div>
+            <div className="flex flex-col border-t border-gray-300 mb-2 mt-2"></div>
+            <div>
+              <a className="text-blue-500" href="/register">Don't have an account? Register</a>
+            </div>
+            <button className="bg-blue-500 text-white rounded-lg p-2" type="submit">Login</button>
+          </form>
+        </div>
+      </main>
       <Footer />
     </div>
   );
 }
-
-export default Login;
