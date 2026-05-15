@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   return (
@@ -21,7 +22,7 @@ export default function Login() {
             </div>
             <div className="flex flex-col border-t border-gray-300 mb-2 mt-2"></div>
             <div>
-              <a className="text-blue-500" href="/register">Don't have an account? Register</a>
+              <Link className="text-blue-500" to="/register">Don't have an account? Register</Link>
             </div>
             <button className="bg-blue-500 text-white rounded-lg p-2" type="submit">Login</button>
           </form>

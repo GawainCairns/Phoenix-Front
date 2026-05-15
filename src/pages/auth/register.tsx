@@ -7,7 +7,7 @@ export default function Register() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="flex flex-col items-center justify-center flex-grow">
+      <main className="flex flex-col items-center justify-center flex-grow">
         <div className="w-full max-w-sm border border-gray-300 rounded-2xl p-4">
           <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Register</h2>
           <form className="flex flex-col border-gray-300 rounded" action="">
@@ -34,12 +34,12 @@ export default function Register() {
             </div>
             <div className="flex flex-col border-t border-gray-300 mb-2 mt-2"></div>
             <div>
-              <a className="text-blue-500" href="/login">Already have an account? Login</a>
+              <Link className="text-blue-500" to="/login">Already have an account? Login</Link>
             </div>
             <button className="bg-blue-500 text-white rounded-lg p-2" type="submit">Register</button>
           </form>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );

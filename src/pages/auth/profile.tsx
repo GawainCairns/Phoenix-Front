@@ -13,7 +13,7 @@ export default function Profile() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="flex flex-col items-center justify-center flex-grow">
+      <main className="flex flex-col items-center justify-center flex-grow">
         <div className="w-full max-w-sm border border-gray-300 rounded-2xl p-4">
           <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Profile</h2>
           <div className="flex flex-col border-gray-300 rounded">
@@ -42,9 +42,9 @@ export default function Profile() {
             </div>
           </div>
           <div className="border-t border-gray-300"></div>
-          <button className="bg-blue-500 text-white rounded p-2 mt-4" type="submit">Edit Profile</button>
+          <button className="bg-blue-500 text-white rounded-lg p-2 mt-4" type="submit">Edit Profile</button>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );
