@@ -1,15 +1,36 @@
 import React from "react";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import { Link } from 'react-router-dom';
+
+const mock = [
+  { id: 1, title: 'Public Poll 1', desc: 'Open to everyone' },
+  { id: 2, title: 'Public Poll 2', desc: 'Open to everyone' },
+];
 
 export default function PublicSurveys() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      Survey name
-      Survey description
-      Edit button
-      Delete button
+      <main className="flex-grow p-6 pt-20">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="mb-4 text-2xl font-bold">Public Surveys</h2>
+          <ul>
+            {mock.map((s) => (
+              <li key={s.id} className="flex items-center justify-between p-3 mb-2 border rounded">
+                <div>
+                  <div className="font-medium">{s.title}</div>
+                  <div className="text-sm text-gray-600">{s.desc}</div>
+                </div>
+                <div className="flex gap-2">
+                  <Link to={`/surveys/view/${s.id}`} className="text-blue-600">View</Link>
+                  <Link to={`/surveys/response/${s.id}`} className="text-green-600">Respond</Link>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </main>
       <Footer />
     </div>
   );

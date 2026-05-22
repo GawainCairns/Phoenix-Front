@@ -38,6 +38,7 @@ export default function App() {
         <Route path="/surveys/response/:id" element={<Response />} />
         <Route path="/surveys/results/:id" element={<SurveyResults />} />
         <Route path="/surveys/view/:id" element={<ViewSurvey />} />
+        <Route path="/surveys/responselist/:id" element={<Response />} />
         {/* Stats Routes */}
         <Route path="/stats/survey/:id" element={<SurveyStats />} />
         <Route path="/stats/users/:id" element={<UserStats />} />
