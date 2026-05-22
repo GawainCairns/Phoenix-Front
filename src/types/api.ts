@@ -1,43 +1,26 @@
-interface user {
-  id: number;
-  username: string;
-  name: string;
-  email: string;
-  password: string;
-  description: string;
-  permissions: string[];
-  memberSince: string;
-  lastLogin: string;
+export interface User {
+	id?: string;
+	username?: string;
+	name?: string;
+	email?: string;
+	description?: string;
+	permissions?: string[];
+	updated_by?: string;
+	[key: string]: any;
 }
 
-interface survey {
-  id: number;
-  title: string;
-  description: string;
-  creator: user;
-  questions: questions[];
-  createdAt: string;
-  updatedAt: string;
+export interface UserCreate {
+	username: string;
+	name?: string;
+	email?: string;
+	description?: string;
+	password_hash: string;
+	permissions?: string[];
+	updated_by?: string;
 }
 
-interface questions {
-  id: number;
-  text: string;
-  type: string;
-  options?: string[];
+export interface Credentials {
+	username?: string;
+	email?: string;
+	password: string;
 }
-
-interface answers {
-  id: number;
-  questionId: number;
-  answer: string | number | boolean;
-  respondent: user;
-  submittedAt: string;
-}
-
-export type { 
-  user,
-  survey,
-  questions,
-  answers
-};
