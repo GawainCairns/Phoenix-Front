@@ -1,29 +1,6 @@
 import { Credentials, UserCreate, User } from "../types/api";
+import { baseUrl, handleResponse } from "./utils";
 
-const baseUrl = (import.meta as any).env?.VITE_API_BASE_URL ?? '';
-
-async function handleResponse(res: Response, expectedStatus: number) {
-	const text = await res.text();
-	let body: any = null;
-	try {
-		body = text ? JSON.parse(text) : null;
-	} catch (e) {
-		body = text;
-	}
-
-	if (res.status === expectedStatus) return body;
-
-	const err: any = new Error(body?.message || res.statusText || 'Request failed');
-	err.status = res.status;
-	err.body = body;
-	throw err;
-}
-
-/**
- * POST /auth/login
- * Body: { username?, email?, password }
- * Success: 200 -> user object
- */
 export async function login(creds: Credentials): Promise<User> {
 	if (!creds || !creds.password || (!creds.username && !creds.email)) {
 		const err: any = new Error('Missing required fields: password and one of username or email');
@@ -40,11 +17,6 @@ export async function login(creds: Credentials): Promise<User> {
 	return handleResponse(res, 200);
 }
 
-/**
- * POST /user/
- * Body: UserCreate
- * Success: 201 -> created user object
- */
 export async function createUser(user: UserCreate): Promise<User> {
 	if (!user || !user.username || !user.password_hash) {
 		const err: any = new Error('Missing required fields: username and password_hash');
@@ -52,10 +24,14 @@ export async function createUser(user: UserCreate): Promise<User> {
 		throw err;
 	}
 
+	// Some backends expect the field to be named `password` instead of `password_hash`.
+	// Send both to maximize compatibility.
+	const payload: any = { ...user, password: (user as any).password_hash };
+
 	const res = await fetch(`${baseUrl}/user/`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(user),
+		body: JSON.stringify(payload),
 	});
 
 	return handleResponse(res, 201);

@@ -23,14 +23,23 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Auth Routes */}
+        {/* Main Page Route */}
+
         <Route path="/" element={<Landing />} />
+        <Route path="/contact" element={<Landing />} />
+        <Route path="/about" element={<Landing />} />
+        <Route path="/services" element={<Landing />} />
+
+        {/* Auth Routes */}
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<AdminDashboard />} />
+
         {/* Survey Routes */}
+
         <Route path="/surveys" element={<ListSurvey />} />
         <Route path="/surveys/create" element={<CreateSurvey />} />
         <Route path="/surveys/edit/:id" element={<EditSurvey />} />
@@ -39,7 +48,9 @@ export default function App() {
         <Route path="/surveys/results/:id" element={<SurveyResults />} />
         <Route path="/surveys/view/:id" element={<ViewSurvey />} />
         <Route path="/surveys/responselist/:id" element={<Response />} />
+
         {/* Stats Routes */}
+
         <Route path="/stats/survey/:id" element={<SurveyStats />} />
         <Route path="/stats/users/:id" element={<UserStats />} />
       </Routes>

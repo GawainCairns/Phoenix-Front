@@ -18,9 +18,10 @@ async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
   try {
     const creds: Credentials = { email, password };
     const user = await login(creds);
-    alert(`Logged in as ${user.name} (mock)`);
+    console.log(`Logged in as ${user.name}`);
+    window.location.href = '/dashboard';
   } catch (err: any) {
-    alert(`Login failed: ${err.message}`);
+    console.error('Login failed:', err);
   }
 }
 

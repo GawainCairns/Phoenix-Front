@@ -30,16 +30,18 @@ async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
     console.log('Confirm Password:', confirmPassword);
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match.');
+      console.log('Passwords do not match.');
       return;
     } else {
-      alert(`Registered user: ${name} (mock)`);
+      console.log(`Registered user: ${name} (mock)`);
       try {
         const newUser: UserCreate = { username: username , email: email, password_hash: password, name: name };
         const createdUser = await createUser(newUser);
-        alert(`User created: ${createdUser.name} (mock)`);
+        console.log(`User created: ${createdUser.name} (mock)`);
       } catch (err: any) {
-        alert(`Registration failed: ${err.message}`);
+        console.error('Registration failed:', err?.message ?? err);
+        if (err?.status) console.error('Status:', err.status);
+        if (err?.body) console.error('Body:', err.body);
       }
     }
   }
