@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-// Importing pages
+import { AuthProvider } from './contexts/AuthContext'
 // Auth Pages
 import Landing from './pages/landing'
 import Login from './pages/auth/login'
@@ -13,47 +13,52 @@ import ListSurvey from './pages/survey/listsurvey'
 import CreateSurvey from './pages/survey/createsurvey'
 import PublicSurveys from './pages/survey/publicsurveys'
 import Response from './pages/survey/response'
+import ResponseList from './pages/survey/responselist'
 import SurveyResults from './pages/survey/surveyresults'
 import ViewSurvey from './pages/survey/viewsurvey'
+// User Pages
+import UserList from './pages/userlist'
 // Stats Pages
 import SurveyStats from './pages/stats/surveystats'
 import UserStats from './pages/stats/userstats'
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Main Page Route */}
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Main Page Routes */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/contact" element={<Landing />} />
+          <Route path="/about" element={<Landing />} />
+          <Route path="/services" element={<Landing />} />
 
-        <Route path="/" element={<Landing />} />
-        <Route path="/contact" element={<Landing />} />
-        <Route path="/about" element={<Landing />} />
-        <Route path="/services" element={<Landing />} />
+          {/* Auth Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<AdminDashboard />} />
 
-        {/* Auth Routes */}
+          {/* Survey Routes */}
+          <Route path="/surveys" element={<ListSurvey />} />
+          <Route path="/surveys/mine" element={<ListSurvey />} />
+          <Route path="/surveys/create" element={<CreateSurvey />} />
+          <Route path="/surveys/edit/:id" element={<EditSurvey />} />
+          <Route path="/surveys/public" element={<PublicSurveys />} />
+          <Route path="/surveys/response/:id" element={<Response />} />
+          <Route path="/surveys/results/:id" element={<SurveyResults />} />
+          <Route path="/surveys/view/:id" element={<ViewSurvey />} />
+          <Route path="/surveys/responselist/:id" element={<ResponseList />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+          {/* User Routes */}
+          <Route path="/users" element={<UserList />} />
 
-        {/* Survey Routes */}
-
-        <Route path="/surveys" element={<ListSurvey />} />
-        <Route path="/surveys/create" element={<CreateSurvey />} />
-        <Route path="/surveys/edit/:id" element={<EditSurvey />} />
-        <Route path="/surveys/public" element={<PublicSurveys />} />
-        <Route path="/surveys/response/:id" element={<Response />} />
-        <Route path="/surveys/results/:id" element={<SurveyResults />} />
-        <Route path="/surveys/view/:id" element={<ViewSurvey />} />
-        <Route path="/surveys/responselist/:id" element={<Response />} />
-
-        {/* Stats Routes */}
-
-        <Route path="/stats/survey/:id" element={<SurveyStats />} />
-        <Route path="/stats/users/:id" element={<UserStats />} />
-      </Routes>
-    </BrowserRouter>
+          {/* Stats Routes */}
+          <Route path="/stats/survey/:id" element={<SurveyStats />} />
+          <Route path="/stats/users/:id" element={<UserStats />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }

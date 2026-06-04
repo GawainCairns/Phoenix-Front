@@ -1,53 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserCreate } from '../../types/api';
 import { createUser } from '../../services/auth';
 
-function validateForm() {
-  // Implement form validation logic here
-  return true;
-}
+export default function Register() {
+  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
-  event.preventDefault();
-  if (!validateForm()) {
-    alert('Please fill in all required fields correctly.');
-    return;
-  } else {
-    // Handle registration logic here
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get('name') as string;
-    const username = formData.get('username') as string;
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const confirmPassword = formData.get('confirm-password') as string;
-    console.log('Name:', name);
-    console.log('Username:', username);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Confirm Password:', confirmPassword);
+  async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
 
     if (password !== confirmPassword) {
-      console.log('Passwords do not match.');
+      setError('Passwords do not match.');
       return;
-    } else {
-      console.log(`Registered user: ${name} (mock)`);
-      try {
-        const newUser: UserCreate = { username: username , email: email, password_hash: password, name: name };
-        const createdUser = await createUser(newUser);
-        console.log(`User created: ${createdUser.name} (mock)`);
-      } catch (err: any) {
-        console.error('Registration failed:', err?.message ?? err);
-        if (err?.status) console.error('Status:', err.status);
-        if (err?.body) console.error('Body:', err.body);
-      }
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const newUser: UserCreate = { username, email, passwordHash: password, name };
+      await createUser(newUser);
+      navigate('/login');
+    } catch (err: any) {
+      setError(err?.message ?? 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   }
-}
 
-export default function Register() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -56,31 +49,61 @@ export default function Register() {
           <h2 className="mb-4 text-2xl font-bold text-center text-gray-700">Register</h2>
           <form className="flex flex-col border-gray-300 rounded" onSubmit={handleRegister}>
             <div className="flex flex-col mt-2 mb-2 border-t border-gray-300"></div>
+            {error && (
+              <div className="p-2 mb-2 text-sm text-red-700 bg-red-100 border border-red-300 rounded">
+                {error}
+              </div>
+            )}
             <div className="flex flex-col mb-2">
               <label htmlFor="name">Name:</label>
-              <input className="p-1 border border-gray-300 rounded-lg" type="text" id="name" name="name" required />
+              <input
+                className="p-1 border border-gray-300 rounded-lg"
+                type="text" id="name" name="name"
+                value={name} onChange={(e) => setName(e.target.value)} required
+              />
             </div>
             <div className="flex flex-col mb-2">
               <label htmlFor="username">Username:</label>
-              <input className="p-1 border border-gray-300 rounded-lg" type="text" id="username" name="username" />
+              <input
+                className="p-1 border border-gray-300 rounded-lg"
+                type="text" id="username" name="username"
+                value={username} onChange={(e) => setUsername(e.target.value)} required
+              />
             </div>
             <div className="flex flex-col mb-2">
               <label htmlFor="email">Email:</label>
-              <input className="p-1 border border-gray-300 rounded-lg" type="email" id="email" name="email" required />
+              <input
+                className="p-1 border border-gray-300 rounded-lg"
+                type="email" id="email" name="email"
+                value={email} onChange={(e) => setEmail(e.target.value)} required
+              />
             </div>
             <div className="flex flex-col mb-2">
               <label htmlFor="password">Password:</label>
-              <input className="p-1 border border-gray-300 rounded-lg" type="password" id="password" name="password" required />
+              <input
+                className="p-1 border border-gray-300 rounded-lg"
+                type="password" id="password" name="password"
+                value={password} onChange={(e) => setPassword(e.target.value)} required
+              />
             </div>
             <div className="flex flex-col mb-2">
               <label htmlFor="confirm-password">Confirm Password:</label>
-              <input className="p-1 border border-gray-300 rounded-lg" type="password" id="confirm-password" name="confirm-password" required />
+              <input
+                className="p-1 border border-gray-300 rounded-lg"
+                type="password" id="confirm-password" name="confirm-password"
+                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required
+              />
             </div>
             <div className="flex flex-col mt-2 mb-2 border-t border-gray-300"></div>
-            <div>
+            <div className="mb-2">
               <Link className="text-blue-500" to="/login">Already have an account? Login</Link>
             </div>
-            <button className="p-2 text-white bg-blue-500 rounded-lg" type="submit">Register</button>
+            <button
+              className="p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+              type="submit" disabled={loading}
+            >
+              {loading ? 'Registering...' : 'Register'}
+            </button>
           </form>
         </div>
       </main>

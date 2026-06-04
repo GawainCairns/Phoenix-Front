@@ -18,15 +18,15 @@ export async function login(creds: Credentials): Promise<User> {
 }
 
 export async function createUser(user: UserCreate): Promise<User> {
-	if (!user || !user.username || !user.password_hash) {
-		const err: any = new Error('Missing required fields: username and password_hash');
+	if (!user || !user.username || !(user as any).passwordHash) {
+		const err: any = new Error('Missing required fields: username and passwordHash');
 		err.status = 400;
 		throw err;
 	}
 
-	// Some backends expect the field to be named `password` instead of `password_hash`.
+	// Some backends expect the field to be named `password` instead of `passwordHash`.
 	// Send both to maximize compatibility.
-	const payload: any = { ...user, password: (user as any).password_hash };
+	const payload: any = { ...user, password: (user as any).passwordHash };
 
 	const res = await fetch(`${baseUrl}/user/`, {
 		method: 'POST',

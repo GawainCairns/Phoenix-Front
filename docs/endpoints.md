@@ -47,12 +47,12 @@ This document lists all HTTP endpoints in the project, the expected request body
 	- Response: `200` JSON survey object or `404` `{ error: 'Survey not found' }`.
 
 - **POST /survey/**
-	- Body: JSON `{ code, survey_name, description, status, creator_id, updated_by }` (provide the fields you need; at minimum `survey_name`/`code` depending on your DB constraints).
+	- Body: JSON `{ code, survey_name, description, status, creator_id }` (provide the fields you need; at minimum `survey_name`/`code` depending on your DB constraints).
 	- Response: `201` JSON created survey object.
 	- Errors: `500` on DB/server error.
 
 - **PUT /survey/:id**
-	- Body: any of `{ code, survey_name, description, status, creator_id, updated_by }`.
+	- Body: any of `{ code, survey_name, description, status, creator_id }`.
 		- If no valid fields provided, returns `400` JSON `{ error: 'No valid fields provided' }`.
 	- Response: `200` JSON updated survey object.
 

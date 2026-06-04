@@ -9,7 +9,6 @@
 - createdAt, timestamp when the user was created
 - lastLogin, timestamp of the user's last login
 - updatedAt, timestamp when the user was last updated
-- updatedBy, identifier of the user who last updated this user
 
 # Surveys
 - id, auto-incrementing primary key
@@ -19,7 +18,6 @@
 - creatorId, identifier of the user who created the survey
 - createdAt, timestamp when the survey was created
 - updatedAt, timestamp when the survey was last updated
-- updatedBy, identifier of the user who last updated the survey
 
 # Questions
 - id, auto-incrementing primary key
